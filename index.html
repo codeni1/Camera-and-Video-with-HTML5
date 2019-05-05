@@ -26,9 +26,16 @@
 
 <script>
 
+    //video element
     const player = document.getElementById('player');
+
+    //canvas which is use to display the captured image
     const canvas = document.getElementById('canvas');
+
+    //context 2d use to draw image in canvas
     const context = canvas.getContext('2d');
+
+    //button to click and capture with event click handler
     const captureButton = document.getElementById('capture');
 
     captureButton.addEventListener('click', () => {
@@ -45,6 +52,7 @@
         autoplay: true,
     };
 
+    //video stream then auto play
     if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         // Attach the video stream to the video element and autoplay.
         navigator.mediaDevices.getUserMedia(constraints)
