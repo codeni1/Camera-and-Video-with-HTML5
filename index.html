@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Web Camera</title>
+
+    <style>
+        body {
+            text-align: center;
+        }
+
+        #canvas {
+            border: solid 1px;
+            margin-bottom: 20px;
+            background: black;
+        }
+    </style>
+</head>
+<body>
+<video id="player" width="550" height="440" autoplay></video>
+<br/>
+<button id="capture">Capture Image</button>
+<br/>
+<br/>
+<canvas id="canvas" width="550" height="440"></canvas>
+
+<script>
+
+    const player = document.getElementById('player');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const captureButton = document.getElementById('capture');
+
+    captureButton.addEventListener('click', () => {
+        // Draw the video frame to the canvas.
+        context.drawImage(player, 0, 0, canvas.width, canvas.height);
+
+        // Stop all video streams.
+        // player.srcObject.getVideoTracks().forEach(track => track.stop());
+    });
+
+    //constrains options
+    const constraints = {
+        video: true,
+        autoplay: true,
+    };
+
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Attach the video stream to the video element and autoplay.
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then((stream) => {
+                player.srcObject = stream;
+            });
+    }
+
+</script>
+
+</body>
+</html>
